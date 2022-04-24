@@ -8,15 +8,22 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    const fetchTasks = async () => {
-      const res = await fetch('http://localhost:5000/tasks')
-      const data = await res.json()
+   const getTasks = async () => {
+     const tasksFromServer = await fetchTasks()
+     setTasks(tasksFromServer)
+   }
 
-      return data;
-    }
-
-    fetchTasks()
+    getTasks()
   }, []) // here is passed a dependency array which is empty in this case
+
+  // Fetch Tasks
+
+  const fetchTasks = async () => {
+    const res = await fetch('http://localhost:5000/tasks')
+    const data = await res.json()
+
+    return data;
+  }
 
   // Add Task
 
